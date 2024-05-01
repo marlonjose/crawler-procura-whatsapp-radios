@@ -18,7 +18,7 @@ def verifica_whatsapp(url):
             print("Url acessada:", url)
 
             # Encontrando todas as ocorrências do texto desejado no conteúdo HTML
-            matches = re.findall(r'phone=(\d+)', response.content.decode('utf-8', errors='ignore'))
+            matches = re.findall(r'https://api\.whatsapp\.com/send\?phone=(\d+)', response.content.decode('utf-8', errors='ignore'))
 
             # Se não houver correspondências com o primeiro padrão, tentar com o segundo padrão
             if not matches:
