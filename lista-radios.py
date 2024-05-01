@@ -30,7 +30,10 @@ def verifica_whatsapp(url):
                 phone_number = matches[0]
                 print("Número de telefone do WhatsApp:", phone_number)
                 print("\n")
-                return phone_number
+
+                # Salvando o número no arquivo
+                with open('urls_whatsapp.txt', 'a') as file:
+                    file.write(f'{url} - {phone_number}' + '\n')
             
             else:
                 print("Url com erro:", url)
@@ -78,7 +81,7 @@ def verifica_whatsapp(url):
     
     
 # limite de paginas para a url de MG
-limite_paginas_MG = 129
+limite_paginas_MG = 128
 
 # indice da pagina atual
 indice_pagina = 0
@@ -88,10 +91,7 @@ headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36'
 }
 
-# Lista para armazenar URLs com links para o WhatsApp
-urls_com_whatsapp = []
-
-# verifica_whatsapp('https://www.atenasfm.com.br/')
+# verifica_whatsapp('https://www.radiocanastrafm.com.br/')
 
 while indice_pagina <= limite_paginas_MG:
 
@@ -146,8 +146,6 @@ while indice_pagina <= limite_paginas_MG:
                         
                         # Verificando se o site contém um link para o WhatsApp
                         whatsapp_url = verifica_whatsapp(site_url)
-                        if whatsapp_url:
-                            urls_com_whatsapp.append(whatsapp_url)
                         
                     else:
                         print("Nenhum link para o site encontrado.")
@@ -158,8 +156,3 @@ while indice_pagina <= limite_paginas_MG:
         print("Falha ao acessar a página:", url)
 
     indice_pagina = indice_pagina + 1
-
-# Salvando as URLs com links para o WhatsApp em um arquivo
-with open('urls_whatsapp.txt', 'w') as file:
-    for url in urls_com_whatsapp:
-        file.write(url + '\n')
